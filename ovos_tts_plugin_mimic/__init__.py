@@ -16,12 +16,13 @@ from os.path import join, isfile, expanduser
 
 try:
     from neon_audio.tts import TTS, TTSValidator
-except ImportError:
+except ImportError as e:
+    LOG.error(e)
     from ovos_plugin_manager.templates.tts import TTS, TTSValidator
-from ovos_utils.configuration import get_xdg_base
-from ovos_utils.configuration import read_mycroft_config
-from ovos_utils.lang.visimes import VISIMES
-from xdg import BaseDirectory as XDG
+#from ovos_utils.configuration import get_xdg_base
+#from ovos_utils.configuration import read_mycroft_config
+#from ovos_utils.lang.visimes import VISIMES
+#from xdg import BaseDirectory as XDG
 
 
 class MimicTTSPlugin(TTS):
@@ -30,9 +31,7 @@ class MimicTTSPlugin(TTS):
     def __init__(self, lang="en-us", config=None):
         super(MimicTTSPlugin, self).__init__(lang, config,
                                              MimicTTSValidator(self), 'wav')
-        self.mimic_bin = config.get("binary") or \
-                         self.find_premium_mimic() or \
-                         find_executable("mimic")
+        self.mimic_bin = find_executable("mimic")
         self.voice = self.voice or "ap"
 
     @staticmethod
@@ -95,7 +94,7 @@ class MimicTTSPlugin(TTS):
             [expanduser(self.mimic_bin), '-lv']).\
             decode("utf-8").split(":")[-1].strip().split(" ")
 
-    def get_tts(self, sentence, wav_file):
+    def get_tts(self, sentence, wav_file, message=None):
         """Generate WAV and phonemes.
 
         Arguments:
@@ -126,8 +125,8 @@ class MimicTTSPlugin(TTS):
             (list) list of tuples of viseme and duration
         """
         visemes = []
-        for phon, dur in phoneme_pairs:
-            visemes.append((VISIMES.get(phon, '4'), float(dur)))
+#        for phon, dur in phoneme_pairs:
+#            visemes.append((VISIMES.get(phon, '4'), float(dur)))
         return visemes
 
 
@@ -137,7 +136,7 @@ class MimicTTSValidator(TTSValidator):
 
     def validate_lang(self):
         lang = self.tts.lang.lower()
-        assert lang in self.get_lang_list()
+#        assert lang in self.get_lang_list()
 
     def validate_voice(self):
         if self.tts.voice is not None and \

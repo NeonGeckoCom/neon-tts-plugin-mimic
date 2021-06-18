@@ -14,7 +14,10 @@ import subprocess
 from distutils.spawn import find_executable
 from os.path import join, isfile, expanduser
 
-from ovos_plugin_manager.templates.tts import TTS, TTSValidator
+try:
+    from neon_audio.tts import TTS, TTSValidator
+except ImportError:
+    from ovos_plugin_manager.templates.tts import TTS, TTSValidator
 from ovos_utils.configuration import get_xdg_base
 from ovos_utils.configuration import read_mycroft_config
 from ovos_utils.lang.visimes import VISIMES

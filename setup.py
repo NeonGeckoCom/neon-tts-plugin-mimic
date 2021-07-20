@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from setuptools import setup
-from os.path import getenv, join
+from os import getenv, path
 
 PLUGIN_ENTRY_POINT = 'neon_tts_mimic = ' \
                      'neon_tts_plugin_mimic:MimicTTSPlugin'

@@ -1,3 +1,4 @@
 ovos-plugin-manager>=0.0.1a2
 pyxdg
 phoneme_guesser
+neon_utils>=0.5.7

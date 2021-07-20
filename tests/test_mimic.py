@@ -43,6 +43,8 @@ class TestMimic(unittest.TestCase):
             cls.mimic.playback.join()
         except AttributeError:
             pass
+        except RuntimeError:
+            pass
 
     def test_speak_no_params(self):
         out_file = os.path.join(os.path.dirname(__file__), "test.wav")

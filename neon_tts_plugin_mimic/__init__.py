@@ -19,10 +19,6 @@ try:
 except ImportError as e:
     LOG.error(e)
     from ovos_plugin_manager.templates.tts import TTS, TTSValidator
-#from ovos_utils.configuration import get_xdg_base
-#from ovos_utils.configuration import read_mycroft_config
-#from ovos_utils.lang.visimes import VISIMES
-#from xdg import BaseDirectory as XDG
 
 
 class MimicTTSPlugin(TTS):
@@ -94,13 +90,13 @@ class MimicTTSPlugin(TTS):
             [expanduser(self.mimic_bin), '-lv']).\
             decode("utf-8").split(":")[-1].strip().split(" ")
 
-    def get_tts(self, sentence, wav_file, message=None):
+    def get_tts(self, sentence, wav_file, speaker=None):
         """Generate WAV and phonemes.
 
         Arguments:
             sentence (str): sentence to generate audio for
             wav_file (str): output file
-
+            speaker (dict): override params for TTS voice
         Returns:
             tuple ((str) file location, (str) generated phonemes)
         """

@@ -27,7 +27,7 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from neon_tts_plugin_mimic import MimicTTSPlugin
 
 
-class TestMozilla(unittest.TestCase):
+class TestMimic(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.mimic = MimicTTSPlugin()
@@ -39,8 +39,8 @@ class TestMozilla(unittest.TestCase):
         except FileNotFoundError:
             pass
         try:
-            cls.mTTS.playback.stop()
-            cls.mTTS.playback.join()
+            cls.mimic.playback.stop()
+            cls.mimic.playback.join()
         except AttributeError:
             pass
 

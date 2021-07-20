@@ -9,10 +9,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
+
 import subprocess
+
 from distutils.spawn import find_executable
 from os.path import join, isfile, expanduser
+from neon_utils.log_utils import LOG
+from ovos_utils.configuration import read_mycroft_config
+from xdg import BaseDirectory as XDG
 
 try:
     from neon_audio.tts import TTS, TTSValidator
@@ -25,6 +29,7 @@ class MimicTTSPlugin(TTS):
     """Interface to Mimic TTS."""
 
     def __init__(self, lang="en-us", config=None):
+        config = config or {}
         super(MimicTTSPlugin, self).__init__(lang, config,
                                              MimicTTSValidator(self), 'wav')
         self.mimic_bin = find_executable("mimic")
@@ -33,7 +38,7 @@ class MimicTTSPlugin(TTS):
     @staticmethod
     def find_premium_mimic():
         # HolmesV style
-        xdg_mimic = join(XDG.xdg_config_home, get_xdg_base(),
+        xdg_mimic = join(XDG.xdg_config_home, 'neon',
                          'voices', 'mimic_tn')
         if isfile(xdg_mimic):
             return xdg_mimic

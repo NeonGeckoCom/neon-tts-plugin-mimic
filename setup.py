@@ -24,7 +24,7 @@ def get_requirements(requirements_filename: str):
     return requirements
 
 
-with open("README.md", "r") as f:
+with open("readme.md", "r") as f:
     long_description = f.read()
 
 with open("./version.py", "r", encoding="utf-8") as v:

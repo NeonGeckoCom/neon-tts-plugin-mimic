@@ -17,7 +17,7 @@ from os.path import join, isfile, expanduser
 from neon_utils.log_utils import LOG
 from neon_utils.parse_utils import format_speak_tags
 from ovos_utils.configuration import read_mycroft_config
-from xdg import BaseDirectory as XDG
+from ovos_utils.xdg_utils import xdg_config_home
 
 try:
     from neon_audio.tts import TTS, TTSValidator
@@ -39,13 +39,13 @@ class MimicTTSPlugin(TTS):
     @staticmethod
     def find_premium_mimic():
         # HolmesV style
-        xdg_mimic = join(XDG.xdg_config_home, 'neon',
+        xdg_mimic = join(xdg_config_home(), 'neon',
                          'voices', 'mimic_tn')
         if isfile(xdg_mimic):
             return xdg_mimic
 
         # HolmesV style default / once mycroft finally migrates to xdg
-        xdg_mimic = join(XDG.xdg_config_home, "mycroft",
+        xdg_mimic = join(xdg_config_home(), "mycroft",
                          'voices', 'mimic_tn')
         if isfile(xdg_mimic):
             return xdg_mimic

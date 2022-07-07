@@ -14,8 +14,7 @@ import subprocess
 
 from distutils.spawn import find_executable
 from os.path import join, isfile, expanduser
-from neon_utils.log_utils import LOG
-from neon_utils.parse_utils import format_speak_tags
+from ovos_utils.log import LOG
 from ovos_utils.configuration import read_mycroft_config
 from ovos_utils.xdg_utils import xdg_config_home
 
@@ -106,7 +105,7 @@ class MimicTTSPlugin(TTS):
         Returns:
             tuple ((str) file location, (str) generated phonemes)
         """
-        sentence = format_speak_tags(sentence, False)
+        sentence = self.format_speak_tags(sentence, False)
         if not sentence:
             return wav_file, None
 

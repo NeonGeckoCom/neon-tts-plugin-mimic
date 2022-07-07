@@ -1,3 +1,2 @@
-ovos-plugin-manager~=0.0.5
-neon_utils~=0.5,>=0.5.7
+ovos-plugin-manager~=0.0.16
 ovos-utils~=0.0.15
